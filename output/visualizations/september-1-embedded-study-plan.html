@@ -1,0 +1,111 @@
+<div id="embedded-day-plan">
+  <h1>September 1 · Embedded study plan</h1>
+
+  <div class="viz-row">
+    <span class="viz-badge">6 SM lessons completed earlier</span>
+    <span class="text-muted">Tomorrow: 2 hours of video + 2 hours of practice</span>
+  </div>
+
+  <div class="card" aria-label="Tomorrow's progress">
+    <div class="viz-row">
+      <strong id="embedded-plan-progress-label">0 of 4 blocks complete</strong>
+      <span id="embedded-plan-progress-percent" class="text-muted tabular-nums" aria-live="polite">0%</span>
+    </div>
+    <div class="progress" role="progressbar" aria-label="Tomorrow's study progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="plan-stack">
+    <section class="card">
+      <h2>2:00–4:00 PM · Embedded C</h2>
+
+      <label class="form-check">
+        <input class="form-check-input plan-check" type="checkbox">
+        <span class="form-check-label"><strong>2:00–3:00 · SM Training Academy</strong></span>
+      </label>
+      <ol>
+        <li><a href="https://www.youtube.com/watch?v=SZ_YxFPlu4U" target="_blank" rel="noopener">Installing software</a> · 14:23</li>
+        <li><a href="https://www.youtube.com/watch?v=fb1kM0Nzzoc" target="_blank" rel="noopener">Binary ↔ decimal conversion</a> · 16:09</li>
+        <li><a href="https://www.youtube.com/watch?v=eeyvqdMEgFw" target="_blank" rel="noopener">Binary ↔ hexadecimal conversion</a> · 7:10</li>
+        <li><a href="https://www.youtube.com/watch?v=2JARmz8Edco" target="_blank" rel="noopener">How computers store numbers</a> · 14:21</li>
+        <li><a href="https://www.youtube.com/watch?v=QW3gpXbbGlo" target="_blank" rel="noopener">Escape sequences in C</a> · first 7:57 only</li>
+      </ol>
+      <p class="text-muted tabular-nums">Video total: exactly 1:00:00</p>
+
+      <label class="form-check">
+        <input class="form-check-input plan-check" type="checkbox">
+        <span class="form-check-label"><strong>3:00–4:00 · Practice</strong></span>
+      </label>
+      <ul>
+        <li>Finish the required software installation.</li>
+        <li>Convert 5 decimal values to binary and hexadecimal.</li>
+        <li>Convert 5 binary values back to decimal.</li>
+        <li>Record errors or unfinished installation steps.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>7:00–9:00 PM · STM32</h2>
+
+      <label class="form-check">
+        <input class="form-check-input plan-check" type="checkbox">
+        <span class="form-check-label"><strong>7:00–8:00 · 11-hour STM32 course</strong></span>
+      </label>
+      <p>
+        <a href="https://www.youtube.com/watch?v=vKyL43qXPpk" target="_blank" rel="noopener">Learn STM32 Microcontroller Programming</a>
+      </p>
+      <p class="tabular-nums"><strong>Watch 00:00:00 → 01:00:00</strong></p>
+      <ul>
+        <li>Development setup and STM32CubeIDE</li>
+        <li>Create, flash and monitor a project</li>
+        <li>Troubleshooting and bit operations</li>
+        <li>Beginning of Project 1: LED</li>
+      </ul>
+
+      <label class="form-check">
+        <input class="form-check-input plan-check" type="checkbox">
+        <span class="form-check-label"><strong>8:00–9:00 · Follow along</strong></span>
+      </label>
+      <ul>
+        <li>Open STM32CubeIDE and select the exact board or MCU.</li>
+        <li>Create the first project shown in the course.</li>
+        <li>Build it and record the complete first error, if any.</li>
+        <li>Save one screenshot or note proving the project builds.</li>
+      </ul>
+    </section>
+  </div>
+
+  <p class="text-muted"><strong>Already complete:</strong> SM lessons 1–6. Resume from lesson 7; do not repeat them.</p>
+</div>
+
+<style>
+  #embedded-day-plan .plan-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+</style>
+
+<script>
+(() => {
+  const root = document.getElementById('embedded-day-plan');
+  const checks = [...root.querySelectorAll('.plan-check')];
+  const label = root.querySelector('#embedded-plan-progress-label');
+  const percent = root.querySelector('#embedded-plan-progress-percent');
+  const progress = root.querySelector('.progress');
+  const bar = root.querySelector('.progress-bar');
+
+  function updateProgress() {
+    const done = checks.filter((check) => check.checked).length;
+    const value = Math.round((done / checks.length) * 100);
+    label.textContent = `${done} of ${checks.length} blocks complete`;
+    percent.textContent = `${value}%`;
+    progress.setAttribute('aria-valuenow', String(value));
+    bar.style.width = `${value}%`;
+  }
+
+  checks.forEach((check) => check.addEventListener('change', updateProgress));
+  updateProgress();
+})();
+</script>
