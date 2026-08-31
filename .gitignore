@@ -1,0 +1,15 @@
+# Scratch and intermediate work — not part of the record
+tmp/
+
+# Extracted pages from Projects.pdf and other source material stay local
+**/pdfs/
+*.pdf
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor / tooling
+.vscode/
+.idea/
+node_modules/
