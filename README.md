@@ -1,86 +1,63 @@
 # Embedded Systems Journey
 
-A working record of one embedded systems / firmware track, September–December 2026: Embedded C, then STM32, then RTOS, CAN and a bootloader, ending with a deliberate, bench-first start on a real-time drone flight controller.
+Daily study log for an embedded + control track on STM32, building toward cars and drones.
+One folder per day, each with its own README: topics covered, concept notes, diagrams, doubts asked, the bug of the day, and a short revision quiz.
 
-This repository is the daily log for that track. It holds what was actually planned and actually completed each day — not a course-completion tally.
+**Author:** Enosh RD · 2026 E&I graduate, BITS Pilani Hyderabad
 
-**Current stage:** Stage 0 — setup and Embedded C foundation
-**Current project:** none yet; first target is the GPIO driver exercise
-**Next immediate goal:** SM Training Academy through binary/hex conversion, and hour 1 of the 11-hour STM32 course
-**Blockers:** none recorded
+---
+
+## Boards
+
+| Board | Core | Used for |
+|---|---|---|
+| NUCLEO-F030R8 | Cortex-M0, 48 MHz, no FPU, no CAN | 11-hour STM32 course, P2 |
+| NUCLEO-F446RE | Cortex-M4F, 180 MHz, FPU, 2× CAN | FastBit MCU1/MCU2, drone work |
+
+Tools: STM32CubeIDE · ST-LINK · multimeter · 24 MHz logic analyzer
+
+---
+
+## Plan (fixed deadlines)
+
+| Track | Scope | Done by |
+|---|---|---|
+| 11-hour STM32 course (F030R8) | Projects 4–18 | Sun 8 Nov |
+| | Projects 19–31 (25–26 with MPU6050) | Sun 15 Nov |
+| FastBit MCU1 (F446RE) | GPIO + interrupts → SPI → catch-up → I2C + USART | Sun 29 Nov |
+| FastBit MCU2 (F446RE) | Clocks/PLL, timers, capture/compare, PWM → CAN loopback/silent | Sun 20 Dec |
+| DSA in C | pointers/arrays/strings → linked lists → bits → stacks/queues/ring buffer → sort/search → trees | ongoing, 45 min/day |
+
+## Projects
+
+| # | Project | Window | Status |
+|---|---|---|---|
+| P1 | Debounced button interrupt toggles an LED, on my own GPIO driver | 2–8 Nov | In progress |
+| P2 | UART + LCD console on the F030 | 9–15 Nov | Not started |
+| P3 | MPU6050 over I2C, streamed over UART at a fixed rate | 23–29 Nov | Not started |
+| P4 | Tilt angle with a complementary filter | 30 Nov–6 Dec | Not started |
+| P5 | Self-levelling servo platform with PID | 14 Dec–3 Jan | Not started |
+| P6 | Both boards talking over UART, I2C, SPI and CAN (MCP2515 on the F030) | 4–17 Jan | Not started |
+
+Later: drone flight controller · P7 smart-vehicle CAN network · OBD logger · FreeRTOS · Rust
+
+Every project ships with a 30-second demo video, one measured number (loop time, interrupt latency or RAM), and one bug with its fix.
 
 ---
 
 ## Daily logs
 
-Each day is a standalone interactive HTML page — no build step, no server. Open the file in a browser.
+| Date | Focus | Log |
+|---|---|---|
 
-| Day | Date | Focus | Log |
-|---|---|---|---|
-| 001 | 2026-09-01 | Embedded C (SM Training Academy) · STM32 course hour 1 · conversion practice | [log](output/daily-logs/2026-09-01-embedded-systems/index.html) · [prompt](output/daily-logs/2026-09-01-embedded-systems/prompt.md) |
+---
 
-Each log carries the plan, the exact video timestamps, and an end-of-day report to fill in: videos actually watched, conversion score, STM32 progress, blockers with the complete error text, focused hours, and tomorrow's first action.
-
-**The pages are working documents, not read-only.** Checkboxes, every note field, the light/dark theme, and freehand annotations are saved in your browser's local storage, so a page keeps its state when you reopen it. The toolbar at the bottom gives you pen, highlighter, line, arrow, circle, rectangle and eraser in eleven colors, with undo/redo — for marking up the plan mid-session. Local storage is per-browser and per-device: it is not committed, not shared, and not backed up. Anything that matters goes in the end-of-day report and gets committed.
-
-A day is logged whether it went well or not. An abandoned evening with a recorded error message is a more useful entry than a blank one.
-
-## Roadmap
-
-The full track lives in **[embedded-systems-master-roadmap.md](embedded-systems-master-roadmap.md)** — mentor prompt, stage gates, debugging order, and a resource map.
-
-| Stage | Window | Focus | Gate to move on |
-|---|---|---|---|
-| 0 | First 1–2 weeks | Embedded C: pointers, `struct`, `volatile`, binary/hex, bitwise masks | Write set / clear / test bit operations from memory, without copying |
-| 1 | September | STM32: GPIO, RCC, EXTI, UART, ADC, timers, PWM, I2C/SPI, ST-LINK debugging | The three PDF foundation projects built and explained |
-| 2 | October | Bare metal: memory map, vector table, registers without HAL, CMSIS | One integrated sensor monitoring system, every feature explainable |
-| 3 | Late Oct–Nov | FreeRTOS task scheduler, then CAN as a real two-node demonstration | Tasks, queues, mutexes and ISR-to-task communication understood in practice |
-| 4 | November | Bootloader in layers, plus IMU sensor fusion as the drone prerequisite | Bootloader-to-application jump working; attitude estimation validated on the bench |
-| 5 | December | Package the evidence; simulation-first start on the flight controller | 2–4 documented projects that survive interview questions |
-
-## Project ladder
-
-Targets come from the supplied `Projects.pdf` and are worked in order. The PDF itself is not committed here.
-
-| # | Project | Difficulty | Status |
-|---|---|---|---|
-| 1 | GPIO driver | 2/10 | Not started |
-| 2 | UART communication system | 3/10 | Not started |
-| 3 | Temperature monitoring system | 4/10 | Not started |
-| 4 | RTOS-based task scheduler | 7/10 | Not started |
-| 5 | CAN bus communication | 7/10 | Not started |
-| 6 | Bootloader development | 8/10 | Not started |
-| 7 | Sensor fusion IMU | 8/10 | Not started |
-| 8 | Real-time drone flight controller | 9/10 | December start, simulation and bench only |
-
-When a target is too advanced, it gets a smaller version of the *same* project rather than a substitute — labeled beginner → intermediate → full PDF target.
-
-## How work is classified
-
-Every piece of work gets one of three labels, and the distinction is enforced rather than assumed:
-
-- **Exercise** — followed a tutorial, or built it with the video open. Real learning; never a resume line.
-- **Portfolio project** — built independently, documented, with the architecture and the hardware explainable.
-- **Resume-worthy** — a portfolio project that survives interview questions about every feature claimed, including the debugging.
-
-A watched video is not a project. A project is complete only when it can be built, explained, debugged, meaningfully modified, documented, and published clean.
-
-## Repository layout
+## Folder layout
 
 ```
-embedded-systems-master-roadmap.md   The full track: prompt, stages, gates, resources
-output/
-  daily-logs/
-    YYYY-MM-DD-<topic>/
-      index.html                     The interactive log for that day
-      prompt.md                      The spec the log was generated from
-  visualizations/                    Standalone plan and summary pages
+days/
+  YYYY-MM-DD/
+    README.md     ← topics, notes, diagrams, doubts, bug of the day, quiz, handoff
+projects/
+  P1-.../         ← code + project README (added as projects start)
 ```
-
-`tmp/` is scratch space and is intentionally not tracked. Source PDFs and pages extracted from them stay local — they are other people's material.
-
-## Commit rhythm
-
-Commits mark meaningful checkpoints, not keystrokes: a day's log with its report filled in, a project milestone that builds, or a correction to the roadmap. Weekly, the operating rhythm is watch a segment → rebuild it on the actual board → explain it in five lines → change one thing on purpose → test → record the evidence.
-
-Progress in this repository is measured by what can be explained and rebuilt from scratch, not by videos watched.
