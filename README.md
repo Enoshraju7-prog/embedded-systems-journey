@@ -32,7 +32,7 @@ Tools: STM32CubeIDE · ST-LINK · multimeter · 24 MHz logic analyzer
 
 | # | Project | Window | Status |
 |---|---|---|---|
-| P1 | Debounced button interrupt toggles an LED, on my own GPIO driver | 2–8 Nov | In progress |
+| P1 | Debounced button interrupt toggles an LED, on my own GPIO driver | 2–8 Nov | Up next |
 | P2 | UART + LCD console on the F030 | 9–15 Nov | Not started |
 | P3 | MPU6050 over I2C, streamed over UART at a fixed rate | 23–29 Nov | Not started |
 | P4 | Tilt angle with a complementary filter | 30 Nov–6 Dec | Not started |
@@ -47,17 +47,21 @@ Every project ships with a 30-second demo video, one measured number (loop time,
 
 ## Daily logs
 
+Looking for one topic? → **[TOPICS.md](TOPICS.md)** (topic → the day I learned it)
+
 | Date | Focus | Log |
 |---|---|---|
+| 2026-11-02 | FastBit MCU1: bus interfaces (I-Code / D-Code / S-Bus), AHB vs APB, bus matrix, 15-question quiz | [README](days/2026-11-02_bus-interfaces-bus-matrix/README.md) |
 
 ---
 
 ## Folder layout
 
 ```
+TOPICS.md                     ← topic index: find any topic → the day I learned it
 days/
-  YYYY-MM-DD/
-    README.md     ← topics, notes, diagrams, doubts, bug of the day, quiz, handoff
+  YYYY-MM-DD_topic-name/
+    README.md                 ← topics, notes, diagrams, every doubt answered, quiz, handoff
 projects/
-  P1-.../         ← code + project README (added as projects start)
+  P1-.../                     ← code + project README (added as projects start)
 ```
